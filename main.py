@@ -90,6 +90,10 @@ def login():
             #驗證輸入是否等於資料庫存在的資料
             user = sql.execute(f"SELECT USERNAME FROM database WHERE USERNAME = '{username}' AND PASSWORD = '{password}'")
 
+            #驗證資料庫中是否存在該項
+            if user.fetchone() is None:
+                return render_template_string("請輸入有效帳號密碼")
+
             #調出使用者輸入的帳號名稱
             user_name = user.fetchone()
             #導向welcome.html且在welcome.html上的username變數顯示使用者登入時輸入的帳號
